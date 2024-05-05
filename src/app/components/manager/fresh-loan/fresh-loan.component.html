@@ -1,0 +1,23 @@
+<div class="card border-success border-2 bg-success-subtle">
+    <div class="card-body text-success-emphasis position-relative">
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="m-0">Loan amount</p>
+                <h4>{{loanAmount|currency:'INR'}}</h4>
+            </div>
+            <div class="due-in px-2 bg-success">
+                <p class="m-0">{{loan.date | date}}</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="m-0">Customer name</p>
+                <h4>{{loan.customerName}}</h4>
+            </div>
+            <div>
+                <p class="m-0">Loan item</p>
+                <h4>{{loan.loanItem}}</h4>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="card border-info border-2 bg-info-subtle cursor-pointer" (click)="goToLoanDetails()">
+    <div class="card-body text-info-emphasis position-relative">
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="m-0">EMI due</p>
+                <h4>{{installmentAmount|currency:'INR'}}</h4>
+            </div>
+            <div class="due-in px-2 bg-info">
+                <p class="m-0" *ngIf="pendingInstallmentDueIn>0">Due in {{pendingInstallmentDueIn}} <span *ngIf="pendingInstallmentDueIn===1">day</span><span *ngIf="pendingInstallmentDueIn>1">days</span></p>
+                <p class="m-0" *ngIf="pendingInstallmentDueIn<0">{{-(pendingInstallmentDueIn)}} days overdue</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <p class="m-0">EMI Date</p>
+                <h4>{{pendingInstallment.installmentDueDate|date}}</h4>
+            </div>
+            <div>
+                <p class="m-0">Months remaining</p>
+                <h4>{{monthsRemaining}} months</h4>
+            </div>
+        </div>
+    </div>
+</div>

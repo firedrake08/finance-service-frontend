@@ -1,0 +1,38 @@
+<div *ngIf="!loading">
+    <h2 class="text-center mb-5">Hello {{currentManager.fullname}}</h2>
+    <div class="d-flex justify-content-around align-items-center mb-5">
+        <div class="card w-25 border-primary border-3 bg-primary-subtle">
+            <div class="card-body text-center text-primary-emphasis">
+                <span class="me-1">{{disbursedLoans.length}}</span><span
+                    *ngIf="disbursedLoans.length==1">loan</span><span
+                    *ngIf="disbursedLoans.length!==1">loans</span><span class="ms-1">disbursed</span>
+            </div>
+        </div>
+        <div class="card w-25 border-warning border-3 bg-warning-subtle">
+            <div class="card-body text-center text-warning-emphasis">
+                <span class="me-1">{{totalDisbursedAmount|currency:"INR"}}</span><span class="ms-1">disbursed in
+                    total</span>
+            </div>
+        </div>
+        <div class="card w-25 border-success border-3 bg-success-subtle">
+            <div class="card-body text-center text-success-emphasis">
+                <span class="me-1">{{repaidLoans.length}}</span><span *ngIf="repaidLoans.length==1">loan</span><span
+                    *ngIf="repaidLoans.length!==1">loans</span><span class="ms-1">repaid</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="freshLoans.length">
+        <h3>Fresh Loans - {{freshLoans.length}}</h3>
+        <div class="d-flex loan-group flex-wrap">
+            <div *ngFor="let loan of freshLoans" class="w-25">
+                <app-fresh-loan [loan]="loan"></app-fresh-loan>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading"
+    class="loader-container bg-white d-flex flex-column justify-content-center align-items-center bg-opacity-50">
+    <div class="page-loader">
+    </div>
+    <span class="mt-2 text-primary-emphasis">Loading...</span>
+</div>

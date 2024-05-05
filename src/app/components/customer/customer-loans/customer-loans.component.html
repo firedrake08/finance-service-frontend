@@ -1,0 +1,37 @@
+<div *ngIf="!loading">
+    <h2>My loans</h2>
+    <div *ngIf="!loans.length">No Loans to display</div>
+    <div *ngIf="loans.length">
+        <table class="table table-bordered">
+            <tr>
+                <th>Agent Email</th>
+                <th>Loan Item</th>
+                <th>Item Price</th>
+                <th>Downpayment</th>
+                <th>PAN</th>
+                <th>Aadhaar</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let loan of loans">
+                <td>{{loan.agentMail}}</td>
+                <td>{{loan.loanItem}}</td>
+                <td>{{loan.itemPrice|currency:'INR'}}</td>
+                <td>{{loan.downPayment}}%</td>
+                <td><a class="text-primary" [href]="loan.panUrl" target="_blank">View</a></td>
+                <td><a class="text-primary" [href]="loan.aadhaarUrl" target="_blank">View</a></td>
+                <td>{{loan.status}}</td>
+                <td class="py-2">
+                    <button class="btn btn-pay px-2 py-1"><a
+                            [routerLink]="['/customer-dashboard/loan-details',loan._id]">Details</a></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div *ngIf="loading"
+    class="loader-container bg-white d-flex flex-column justify-content-center align-items-center bg-opacity-50">
+    <div class="page-loader">
+    </div>
+    <span class="mt-2 text-primary-emphasis">Loading...</span>
+</div>

@@ -1,0 +1,24 @@
+<h2>New Loan</h2>
+<div class="w-25" [formGroup]="newLoanForm">
+    <label>Customer Name</label>
+    <input type="text" class="form-control mb-2" placeholder="Customer Name" formControlName="customerName">
+    <label>Customer Email</label>
+    <input type="text" class="form-control mb-2" placeholder="Customer Email" formControlName="customerEmail">
+    <label>Select Loan Item</label>
+    <select class="form-select mb-2" formControlName="loanItem">
+        <option [selected]="true" disabled>Select item</option>
+        <option value="4 wheeler loan">4 wheeler loan</option>
+        <option value="2 wheeler loan">2 wheeler loan</option>
+    </select>
+    <label>Item Price</label>
+    <input type="text" class="form-control mb-2" placeholder="Item Price" formControlName="itemPrice">
+    <label>Down Payment Percentage</label>
+    <input type="number" class="form-control mb-2" placeholder="Down Payment Percentage" formControlName="downPayment">
+    <label>Tenure</label>
+    <input type="number" class="form-control mb-2" placeholder="Tenure In Years" formControlName="tenure">
+    <label>Upload PAN</label>
+    <input type="file" class="form-control mb-2" (change)="onPanUpload($event)">
+    <label>Upload Aadhaar</label>
+    <input type="file" class="form-control mb-3" (change)="onAadhaarUpload($event)">
+    <button class="btn btn-primary" (click)="raiseReq()">Raise Requisition</button>
+</div>

@@ -1,0 +1,44 @@
+<div *ngIf="!loading">
+    <h2>Loan Details</h2>
+    <div class="card w-25 bg-primary-subtle border-primary">
+        <div class="card-body">
+            <p>Agent Email: {{currentLoan.agentMail}}</p>
+            <p>Loan Date: {{currentLoan.date|date}}</p>
+            <p>Loan Item: {{currentLoan.loanItem}}</p>
+            <p>Item Price: {{currentLoan.itemPrice}}</p>
+            <p>Downpayment: {{currentLoan.downPayment}}%</p>
+            <p>Loan Amount: {{currentLoan.itemPrice-(currentLoan.downPayment/100*currentLoan.itemPrice)}}</p>
+            <p>Tenure: {{currentLoan.tenure}} years</p>
+            <p>Status: {{currentLoan.status}}</p>
+        </div>
+    </div>
+    <div *ngIf="currentLoan.emiStarted">
+        <h2 class="mt-3">EMI Calendar</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Installment amount</th>
+                <th>Due date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let installment of currentLoan.installments;let i=index;">
+                <td>{{installment.installmentAmount|currency:'INR'}}</td>
+                <td>{{installment.installmentDueDate|date}}</td>
+                <td>{{installment.status}}</td>
+                <td class="py-2">
+                    <button *ngIf="i===firstUnpaidIndex" class="btn btn-pay" (click)="payEmi(installment)">
+                        Pay EMI
+                    </button>
+                    <span *ngIf="installment.status==='paid'">Paid on {{installment.paymentDate|date
+                        }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div *ngIf="loading"
+    class="loader-container bg-white d-flex flex-column justify-content-center align-items-center bg-opacity-50">
+    <div class="page-loader">
+    </div>
+    <span class="mt-2 text-primary-emphasis">Loading...</span>
+</div>

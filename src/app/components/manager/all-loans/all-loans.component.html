@@ -1,0 +1,46 @@
+<div *ngIf="!loading">
+    <div *ngIf="!allLoans.length">No Loans to display</div>
+    <div *ngIf="allLoans.length">
+        <table class="table table-bordered">
+            <tr>
+                <th>Loan Date</th>
+                <th>Agent Mail</th>
+                <th>Customer Name</th>
+                <th>Loan Item</th>
+                <th>Item Price</th>
+                <th>Downpayment</th>
+                <th>PAN</th>
+                <th>Aadhaar</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let loan of allLoans">
+                <td>{{loan.date|date}}</td>
+                <td>{{loan.agentMail}}</td>
+                <td>{{loan.customerName}}</td>
+                <td>{{loan.loanItem}}</td>
+                <td>{{loan.itemPrice|currency:'INR'}}</td>
+                <td>{{loan.downPayment}}%</td>
+                <td><a class="text-primary" [href]="loan.panUrl" target="_blank">View</a></td>
+                <td><a class="text-primary" [href]="loan.aadhaarUrl" target="_blank">View</a></td>
+                <td>{{loan.status}}</td>
+                <td class="py-2">
+                    <div *ngIf="loan.status==='fresh'">
+                        <button class="btn btn-approve px-2 py-1 me-2" (click)="approveLoan(loan)">Approve</button>
+                        <button class="btn btn-reject px-2 py-1" (click)="rejectLoan(loan)">Reject</button>
+                    </div>
+                    <div *ngIf="loan.status!=='fresh'">
+                        <button [disabled]="loan.status!=='downpayment done'" class="btn btn-disburse px-2 py-1"
+                            (click)="disburseAmount(loan)">Disburse Payment</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div *ngIf="loading"
+    class="loader-container bg-white d-flex flex-column justify-content-center align-items-center bg-opacity-50">
+    <div class="page-loader">
+    </div>
+    <span class="mt-2 text-primary-emphasis">Loading...</span>
+</div>

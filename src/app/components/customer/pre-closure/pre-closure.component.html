@@ -1,0 +1,51 @@
+<div *ngIf="!loading">
+    <h2>Loan Preclosure</h2>
+    <div *ngIf="!loans.length">No Loans to display</div>
+    <div *ngIf="loans.length">
+        <table class="table table-bordered">
+            <tr>
+                <th>Agent Email</th>
+                <th>Loan Item</th>
+                <th>Item Price</th>
+                <th>Downpayment</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let loan of loans">
+                <td>{{loan.agentMail}}</td>
+                <td>{{loan.loanItem}}</td>
+                <td>{{loan.itemPrice|currency:"INR"}}</td>
+                <td>{{loan.downPayment}}%</td>
+                <td>{{loan.status}}</td>
+                <td class="py-2">
+                    <button class="btn btn-pay px-2 py-1" [disabled]="!loan.emiStarted || loan.status==='completed'"
+                        (click)="openPrecloseLoanModal(precloseLoanModal,loan)">Preclose loan</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div *ngIf="loading"
+    class="loader-container bg-white d-flex flex-column justify-content-center align-items-center bg-opacity-50">
+    <div class="page-loader">
+    </div>
+    <span class="mt-2 text-primary-emphasis">Loading...</span>
+</div>
+
+<!-- Loan Preclosure Modal -->
+<ng-template #precloseLoanModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Preclose Loan</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closePrecloseLoanModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h5>Remaining Amount</h5>
+        <h4>{{this.remainingAmount|currency:'INR'}}</h4>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="precloseLoan()">Foreclose Loan</button>
+    </div>
+</ng-template>
